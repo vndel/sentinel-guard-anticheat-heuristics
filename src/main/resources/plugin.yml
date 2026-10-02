@@ -1,0 +1,21 @@
+name: SentinelGuard
+version: '${project.version}'
+main: com.fivemcodehub.sentinel.SentinelPlugin
+api-version: '1.20'
+authors: [vndel]
+description: Movement and combat telemetry collector with lag-compensating heuristics
+website: https://team.fivemcodehub.com
+
+commands:
+  sentinel:
+    description: Inspect telemetry and violation state
+    usage: /sentinel <stats|inspect|reload> [player]
+    permission: sentinel.admin
+
+permissions:
+  sentinel.admin:
+    description: Administrative access
+    default: op
+  sentinel.bypass:
+    description: Exempt from all checks
+    default: false
