@@ -1,0 +1,41 @@
+# ───────────────────────────────────────────────────────────────
+#  SentinelGuard — telemetry and heuristics
+#
+#  This plugin raises violation levels. It does not kick or ban.
+#  Heuristics are probabilistic: under packet loss or a TPS dip any
+#  threshold will produce false positives, so the enforcement
+#  decision stays with an operator.
+# ───────────────────────────────────────────────────────────────
+
+compensation:
+  # Extra tolerance granted per 100ms of player latency.
+  tolerance-per-100ms: 0.08
+
+  # Ceiling on latency tolerance, so an intentionally bad connection
+  # cannot buy unlimited slack.
+  max-tolerance: 0.60
+
+  # MSPT above which the server is considered behind schedule.
+  mspt-budget: 45.0
+  max-tick-tolerance: 0.75
+
+  # Below this TPS, all checks suspend. Readings here are not meaningful.
+  suspend-below-tps: 16.0
+
+violations:
+  # Levels decay continuously. Isolated spikes fade; sustained cheating
+  # outruns decay and accumulates.
+  decay-per-minute: 2
+
+checks:
+  movement-speed:
+    enabled: true
+    leniency: 1.15
+    ice-factor: 2.4
+    water-factor: 0.9
+    log-threshold: 12.0
+
+  combat-reach:
+    enabled: true
+    leniency: 1.10
+    log-threshold: 10.0
